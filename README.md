@@ -36,5 +36,5 @@ Is executed when keyboard input is supplied. Calls the ```move_X()``` and ```on_
  Checks to see if any spaces remain empty and returns ```True``` or ```False```. Should only be called after ```is_game_over()```.
  ### **is_game_over()**
  Checks all possible win conditions and returns ```True``` or ```False```.
- ## **on_play()**
+ ### **on_play()**
  Called when player presses space. First checks if spot is ```EMPTY```. If the current spot is ```EMPTY```, its value is changed to ```player```. ```is_game_over()``` and ```is_stalemate()``` are called and ```game_over``` and ```stalemate``` are updated accordingly. If neither returns ```True``` nor ```False```, ```swap_player()``` is called and play continues.
