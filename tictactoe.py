@@ -209,6 +209,10 @@ print_footer(RESET, 0.05)
 blink_game(COLOR, 0.2, 5)
 
 current_footer = " PLAYER " + player + "'s TURN "
+clear_lines(11)
+print_header(RESET, 0)
+print_spaces(RESET, RESET, 0)
+print_footer(RESET, 0)
 
 while game_over == False:
     clear_lines(8)
