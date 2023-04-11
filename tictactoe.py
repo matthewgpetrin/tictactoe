@@ -10,7 +10,7 @@ COLOR = "\033[33m"
 RESET = "\033[0m"
 
 # Player value macros
-EMPTY = " "
+EMPTY = " "                                                                     
 EX = "x"
 OH = "o"
 
@@ -27,13 +27,15 @@ board = [[EMPTY, EMPTY, EMPTY],
          [EMPTY, EMPTY, EMPTY],
          [EMPTY, EMPTY, EMPTY]]
 
+# Column and row currently being highlighted
 current_row = 1
 current_col = 1
 
+# Header and footer text to be displayed
 header = "   TIC TAC TOE   "
 footer = "     WELCOME     "
 
-# KEYBOARD LOGIC AND HOOK
+# Keyboard logic executes on hook call
 def on_press(event):
     global debounce_time
     if time.time() - debounce_time > 0.2:
@@ -49,14 +51,15 @@ def on_press(event):
         elif event.name == "right":
             move_R()
 
+# Hook executes on key press
 keyboard.hook(on_press)
 
-# GAME DISPLAY FUNCTIONS
+# Clear lines for new frame
 def clear_lines(lines):
     for i in range(lines):
         print("\033[1A", end="\r")
 
-
+# Print the spaces on the game board. Color the current space
 def print_spaces(color_empty, color_taken, delay):
     print("|                 |")
     time.sleep(delay)
@@ -77,7 +80,7 @@ def print_spaces(color_empty, color_taken, delay):
     print("|                 |")
     time.sleep(delay)
 
-
+# Print header box and text
 def print_header(color, delay):
     print("p-----------------q")
     time.sleep(delay)
@@ -86,7 +89,7 @@ def print_header(color, delay):
     print("b-----------------d")
     time.sleep(delay)
 
-
+# Print footer box and text
 def print_footer(color, delay):
     print("p-----------------q")
     time.sleep(delay)
@@ -95,7 +98,7 @@ def print_footer(color, delay):
     print("b-----------------d")
     time.sleep(delay)
 
-
+# Print and clear header, spaces, and footer a specified number of times
 def blink_game(color, delay, count):
     for i in range(count):
         clear_lines(11)
@@ -113,31 +116,31 @@ def blink_game(color, delay, count):
 
         time.sleep(delay)
 
-# MOVEMENT FUNCTIONS
+# Move up
 def move_U():
     global current_row
     if current_row > 0:
         current_row = current_row - 1
 
-
+# Move down
 def move_D():
     global current_row
     if current_row < 2:
         current_row = current_row + 1
 
-
+# Move left
 def move_L():
     global current_col
     if current_col > 0:
         current_col = current_col - 1
 
-
+# Move right
 def move_R():
     global current_col
     if current_col < 2:
         current_col = current_col + 1
 
-# GAME LOGIC
+# Switch current player
 def swap_players():
     global player
     if player == EX:
@@ -145,7 +148,7 @@ def swap_players():
     elif player == OH:
         player = EX
 
-
+# Check for stalemate conditions
 def is_stalemate():
     for r, row in enumerate(board):
         for c, col in enumerate(row):
@@ -153,7 +156,7 @@ def is_stalemate():
                 return 0
     return 1
 
-
+# Check for win conditions
 def is_game_over():
     for i, row in enumerate(board):
         if board[i][0] == board[i][1] == board[i][2] and board[i][0] != EMPTY:
@@ -175,7 +178,7 @@ def is_game_over():
 
     return 0
 
-
+# Execute on space bar press. Make play, check for win and stalemate
 def on_play():
     global game_over
     global stalemate
@@ -200,7 +203,7 @@ def on_play():
             swap_players()
             footer = " PLAYER " + player + "'s TURN "
             
-            
+# Execute on game start. Prints board and randomized starting player          
 def on_start():
     global player
     global footer
@@ -223,17 +226,18 @@ def on_start():
 # MAIN GAME LOOP
 on_start()
 
+# Print and clear board every 0.4 seconds
 while game_over == False:
     clear_lines(8)
     print_spaces(RESET, RESET, 0)
     print_footer(RESET, 0)
 
-    time.sleep(.4)
+    time.sleep(0.4)
 
     clear_lines(8)
     print_spaces(COLOR, "\033[31;1;4m", 0)
     print_footer(RESET, 0)
     
-    time.sleep(.4)
+    time.sleep(0.4)
 
 blink_game(COLOR, 0.2, 5) 
