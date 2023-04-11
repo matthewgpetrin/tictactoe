@@ -1,5 +1,5 @@
-import os
 import time
+import random
 import keyboard
 
 # Time at last keyboard stroke
@@ -30,8 +30,8 @@ board = [[EMPTY, EMPTY, EMPTY],
 current_row = 1
 current_col = 1
 
-current_header = "   TIC TAC TOE   "
-current_footer = "     WELCOME     "
+header = "   TIC TAC TOE   "
+footer = "     WELCOME     "
 
 # KEYBOARD LOGIC AND HOOK
 def on_press(event):
@@ -81,7 +81,7 @@ def print_spaces(color_empty, color_taken, delay):
 def print_header(color, delay):
     print("p-----------------q")
     time.sleep(delay)
-    print("|" + color + current_header + RESET + "|")
+    print("|" + color + header + RESET + "|")
     time.sleep(delay)
     print("b-----------------d")
     time.sleep(delay)
@@ -90,7 +90,7 @@ def print_header(color, delay):
 def print_footer(color, delay):
     print("p-----------------q")
     time.sleep(delay)
-    print("|" + color + current_footer + RESET + "|")
+    print("|" + color + footer + RESET + "|")
     time.sleep(delay)
     print("b-----------------d")
     time.sleep(delay)
@@ -180,8 +180,8 @@ def on_play():
     global game_over
     global stalemate
 
-    global current_header
-    global current_footer
+    global header
+    global footer
 
     if board[current_row][current_col] != EMPTY:
         pass
@@ -189,30 +189,39 @@ def on_play():
         board[current_row][current_col] = player
         if is_game_over(): 
             game_over = True
-            current_header = "    GAME OVER    "
-            current_footer = "  PLAYER " + winner + " WINS  "
+            header = "    GAME OVER    "
+            footer = "  PLAYER " + winner + " WINS  "
         elif is_stalemate():
             game_over = True
             stalemate = True
-            current_header = "    GAME OVER    "
-            current_footer = "    STALEMATE    "
+            header = "    GAME OVER    "
+            footer = "    STALEMATE    "
         else:
             swap_players()
-            current_footer = " PLAYER " + player + "'s TURN "
+            footer = " PLAYER " + player + "'s TURN "
+            
+            
+def on_start():
+    global player
+    global footer
+    player = random.choice(list((EX, OH)))
+    
+    footer = "     WELCOME     "
+    print_header(RESET, 0.05)
+    print_spaces(RESET, RESET, 0.05)
+    print_footer(RESET, 0.05)
+    
+    blink_game(COLOR, 0.2, 5)
+    
+    footer = " PLAYER " + player + "'s TURN "
+    clear_lines(11)
+    print_header(RESET, 0)
+    print_spaces(RESET, RESET, 0)
+    print_footer(RESET, 0)
 
 
 # MAIN GAME LOOP
-print_header(RESET, 0.05)
-print_spaces(RESET, RESET, 0.05)
-print_footer(RESET, 0.05)
-
-blink_game(COLOR, 0.2, 5)
-
-current_footer = " PLAYER " + player + "'s TURN "
-clear_lines(11)
-print_header(RESET, 0)
-print_spaces(RESET, RESET, 0)
-print_footer(RESET, 0)
+on_start()
 
 while game_over == False:
     clear_lines(8)
