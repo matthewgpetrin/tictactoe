@@ -2,6 +2,25 @@ import time
 import random
 import keyboard
 
+#How to play:
+# Execute the script
+# Use the arrow keys to move
+# Press space to claim a box
+
+# Explanation:
+# Upon running script, the game board will be printed out in the terminal. At 
+# any given time, variables track the current player, game state, and board 
+# state as well as the row and column the current player is hovering over. When 
+# the script is run, the board is initialized with all spaces empty. Current 
+# row and column are set to 1, game over is set to False, stalemate is set to 
+# False, and the player variable is randomly selected from EX and OH. Once play
+# has begun, the current player may move between spaces using the arrow keys. 
+# This behavior is handled using a keyboard module hook. The board is reprinted 
+# every 0.4 seconds, and the box being selected with be highlighted. When a 
+# player makes a legal move, the game state will be updated. If the game is not 
+# over, the player variable switches and play continues. If an illegal move is 
+# attempted, nothing will happen.
+
 # Time at last keyboard stroke
 debounce_time = 0
 
