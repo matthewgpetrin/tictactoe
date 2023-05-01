@@ -177,6 +177,8 @@ def is_stalemate():
 
 # Check for win conditions
 def is_game_over():
+    global winner
+    
     for i, row in enumerate(board):
         if board[i][0] == board[i][1] == board[i][2] and board[i][0] != EMPTY:
             winner = player
