@@ -253,12 +253,12 @@ while game_over == False:
     print_spaces(RESET, RESET, 0)
     print_footer(RESET, 0)
 
-    time.sleep(0.4)
+    time.sleep(0.3)
 
     clear_lines(8)
     print_spaces(COLOR, "\033[31;1;4m", 0)
     print_footer(RESET, 0)
     
-    time.sleep(0.4)
+    time.sleep(0.3)
 
 blink_game(COLOR, 0.2, 5) 
